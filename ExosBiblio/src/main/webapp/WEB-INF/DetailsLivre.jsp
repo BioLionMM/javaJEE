@@ -15,9 +15,9 @@
 	<c:import url = "/WEB-INF/menu.jsp"/>
 	<p>Completez l'url avec "?id=" et l'id du livre cherché.</p>
 	<h3>Infos:</h3>
-	<p>Titre=${livre.titre} <br/>Auteur: ${livre.auteur.prenom } ${livre.auteur.nom }</p>
+	<p>Titre=<c:out value="${livre.titre}" /> <br/>Auteur: <c:out value="${livre.auteur.prenom }" /> <c:out value="${livre.auteur.nom }" /></p>
 	<h4>Details:</h4>
-	<p>Categorie: ${livre.categorie}
-	<p>Nombre de pages: ${livre.nbPages}
+	<p>Categorie: <c:out value="${livre.categorie}" />
+	<p>Nombre de pages: <c:out value="${livre.nbPages}" />
 </body>
 </html>

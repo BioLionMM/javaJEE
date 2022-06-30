@@ -12,15 +12,19 @@
 </head>
 <body>
 	<c:import url = "/WEB-INF/menu.jsp"/>
-    <p>Il y a ${lengthAuteurs} auteurs.</p>
+    <p>Il y a <c:out value="${lengthAuteurs}" /> auteurs.</p>
 	<c:forEach items="${listAuteurs}" var="auteur" >
-		<p>${auteur.nom } ${auteur.prenom }</p>
+		<p><c:out value="${auteur.nom }" /> <c:out value="${auteur.prenom}"/></p>
 		<c:out value="${param.btn}" />
-		<a href="./src/main/java/servlets/SupprimerAuteur.java?id="+${auteur.id}>
+		<a href = "<c:url value = "/SupprimerAuteur?id=${auteur.id }"/>">
 			<input name="btn" type="submit" value="Supprimer"/>
 		</a>
 		
         <br />
 	</c:forEach>
+	
+	<a href = "<c:url value = "/AjouterAuteur"/>">
+			<input name="btn" type="submit" value="AjouterAuteur"/>
+		</a>
 </body>
 </html>

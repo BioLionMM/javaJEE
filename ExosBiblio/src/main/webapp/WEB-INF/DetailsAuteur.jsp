@@ -14,10 +14,10 @@
 	<c:import url = "/WEB-INF/menu.jsp"/>
 	<p>Completez l'url avec "?id=" et l'id de l'auteur cherché.</p>
 	<h3>Infos:</h3>
-	<p>Nom=${auteur.nom} ${auteur.prenom }</p>
+	<p>Nom=<c:out value="${auteur.nom}" /> <c:out value="${auteur.prenom }" /></p>
 	<h4>Contact:</h4>
-	<p>Email= ${auteur.email}
-	<p>Telephone= ${auteur.telephone}
+	<p>Email= <c:out value="${auteur.email}" /></p>
+	<p>Telephone= <c:out value="${auteur.telephone}" /></p>
 
 </body>
 </html>

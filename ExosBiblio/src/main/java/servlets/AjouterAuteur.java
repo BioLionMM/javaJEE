@@ -7,20 +7,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.cleverdev.dao.AuteurDao;
+import fr.cleverdev.dao.DaoException;
+import fr.cleverdev.dao.DaoFactory;
+
 /**
  * Servlet implementation class AjouterAuteur
  */
 @WebServlet("/AjouterAuteur")
 public class AjouterAuteur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	AuteurDao auteurDao = DaoFactory.getInstance().getAuteurDao();
  
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		id=request.getParameter("id");
+		if(id != null) {
+			try {
+				auteurCherche=auteurDao.trouver(Integer.valueOf(id));
+				
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
+		}
+
+		request.setAttribute("auteur",auteurCherche);
+		
+		this.getServletContext().getRequestDispatcher( "/WEB-INF/DetailsAuteur.jsp").forward( request,
+				response );
 	}
 
 	/**

@@ -34,7 +34,7 @@ public class SupprimerAuteur extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		response.sendRedirect( request.getContextPath() + "ListeAuteurs" );
+		response.sendRedirect( request.getContextPath() + "/ListeAuteurs" );
 
 	}
 }
