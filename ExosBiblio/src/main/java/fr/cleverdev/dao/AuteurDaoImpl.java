@@ -15,7 +15,7 @@ public class AuteurDaoImpl implements AuteurDao {
 	private static final String SQL_INSERT       = "INSERT INTO auteur(nom,prenom,telephone,email) VALUES(?,?,?,?)";
 	private static final String SQL_SELECT       = "SELECT id,nom,prenom,telephone,email FROM auteur";
     private static final String SQL_SELECT_BY_ID = "SELECT id,nom,prenom,telephone,email FROM auteur WHERE id = ?";
-    private static final String SQL_MODIF_BY_ID = "UPDATE auteur SET nom=? prenom=? telephone=? email=? WHERE id = ? ";
+    private static final String SQL_MODIF_BY_ID = "UPDATE auteur SET nom=?, prenom=?, telephone=?, email=? WHERE id = ? ";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM auteur WHERE id = ? ";
 
 	private DaoFactory factory;
@@ -142,6 +142,7 @@ public class AuteurDaoImpl implements AuteurDao {
 			  pst.setString(4, auteur.getEmail());
 			  pst.setLong(5, auteur.getId());
 			  
+			  System.out.println(pst);
 			  int statut = pst.executeUpdate();
 			  
 			  if ( statut == 0 ) {

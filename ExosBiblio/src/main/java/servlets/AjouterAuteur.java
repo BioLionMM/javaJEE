@@ -10,42 +10,44 @@ import javax.servlet.http.HttpServletResponse;
 import fr.cleverdev.dao.AuteurDao;
 import fr.cleverdev.dao.DaoException;
 import fr.cleverdev.dao.DaoFactory;
+import fr.cleverdev.model.Auteur;
 
 /**
  * Servlet implementation class AjouterAuteur
  */
 @WebServlet("/AjouterAuteur")
 public class AjouterAuteur extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	AuteurDao auteurDao = DaoFactory.getInstance().getAuteurDao();
- 
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		id=request.getParameter("id");
-		if(id != null) {
-			try {
-				auteurCherche=auteurDao.trouver(Integer.valueOf(id));
-				
-			} catch (DaoException e) {
-				e.printStackTrace();
-			}
-		}
-
-		request.setAttribute("auteur",auteurCherche);
-		
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/DetailsAuteur.jsp").forward( request,
+		this.getServletContext().getRequestDispatcher( "/WEB-INF/AjouterAuteur.jsp").forward( request,
 				response );
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		String nom=request.getParameter("nom");
+		String prenom=request.getParameter("prenom");
+		String email=request.getParameter("email");
+		String telephone=request.getParameter("telephone");
+		
+		Auteur auteurAAjouter=new Auteur();
+		auteurAAjouter.setNom(nom);
+		auteurAAjouter.setPrenom(prenom);
+		auteurAAjouter.setTelephone(telephone);
+		auteurAAjouter.setEmail(email);
+		
+		try {
+			auteurDao.creer(auteurAAjouter);
+		}catch(DaoException ex) {
+			ex.printStackTrace();
+		}
+		response.sendRedirect( request.getContextPath() + "/ListeAuteurs" );
 	}
 
 }

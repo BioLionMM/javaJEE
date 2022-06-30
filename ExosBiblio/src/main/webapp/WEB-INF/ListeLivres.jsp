@@ -11,13 +11,23 @@
 </head>
 <body>
 	<c:import url = "/WEB-INF/menu.jsp"/>
-	<p>Il y a<c:out value="${lengthLivres}" /> livres.</p>
+	<p>Il y a <c:out value="${lengthLivres}" /> livres.</p>
 	<c:forEach items="${listLivres}" var="livre" >
 		<p><c:out value="${livre.titre}" /> de <c:out value="${livre.auteur.prenom}"/>  <c:out value="${livre.auteur.nom}"/></p>
-		<c:out value="${param.btn}" />
-		<a href = "<c:url value = "/SupprimerLivre?id=${livre.id}"/>">
+		
+		<a href = "<c:url value = "/DetailsLivre"> <c:param name="id" value="${livre.id }" /> </c:url>" >
+			<input name="btn" type="submit" value="Details"/>
+		</a>
+		
+		<a href = "<c:url value = "/ModifierLivre"> <c:param name="id" value="${livre.id }" /> </c:url>" >
+			<input name="btn" type="submit" value="Modifier"/>
+		</a>
+		
+		
+		<a href = "<c:url value = "/SupprimerLivre"> <c:param name="id" value="${livre.id }" /> </c:url>" >
 			<input name="btn" type="submit" value="Supprimer"/>
 		</a>
+		
 	</c:forEach>
 	
 	<a href = "<c:url value = "/AjouterLivre"/>">

@@ -16,7 +16,7 @@ public class LivreDaoImpl implements LivreDao{
 	private static final String SQL_SELECT       = "SELECT id,titre,id_auteur,nb_pages,categorie FROM livre";
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM livre WHERE id = ?";
     private static final String SQL_SELECT_BY_ID_AUTEUR = "SELECT * FROM livre WHERE id_auteur = ?";
-    private static final String SQL_MODIF_BY_ID = "UPDATE livre SET titre=? WHERE id = ? ";
+    private static final String SQL_MODIF_BY_ID = "UPDATE livre SET titre=?, id_auteur=?, nb_pages=?, categorie=? WHERE id = ? ";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM livre WHERE id = ? ";
 	
 	private DaoFactory factory;
@@ -79,7 +79,7 @@ public class LivreDaoImpl implements LivreDao{
 		      rs.close();
 		      pst.close();
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de recherche BDD Auteur", ex);
+	    	throw new DaoException("Erreur de recherche BDD Livre", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
@@ -107,7 +107,7 @@ public class LivreDaoImpl implements LivreDao{
 		      rs.close();
 		      pst.close();
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de recherche BDD Auteur", ex);
+	    	throw new DaoException("Erreur de recherche BDD Livre", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
@@ -130,7 +130,7 @@ public class LivreDaoImpl implements LivreDao{
 		      rs.close();
 		      pst.close();
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de lecture BDD Auteur", ex);
+	    	throw new DaoException("Erreur de lecture BDD Livre", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
@@ -148,11 +148,11 @@ public class LivreDaoImpl implements LivreDao{
 			  pst.setLong(1, id);
 			  int statut = pst.executeUpdate();
 			  if ( statut == 0 ) {
-				  throw new DaoException("Erreur de suppression Auteur("+id+")");
+				  throw new DaoException("Erreur de suppression Livre("+id+")");
 			  }
 		      pst.close();
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de suppression BDD Auteur", ex);
+	    	throw new DaoException("Erreur de suppression BDD Livre", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
@@ -161,23 +161,28 @@ public class LivreDaoImpl implements LivreDao{
 	
 	
 	@Override
-	public void modification(long id, String titre) throws DaoException {
+	public void modification(Livre livre) throws DaoException {
 		Connection   con=null;
 		try {
 			  con = factory.getConnection();
 			  PreparedStatement pst = con.prepareStatement( SQL_MODIF_BY_ID );
-			  pst.setString(1, titre);
-			  pst.setLong(2, id);
+			  pst.setString( 1, livre.getTitre() );
+			  pst.setLong( 2, livre.getAuteur().getId() );
+			  pst.setLong( 3, livre.getNbPages() );
+			  pst.setString( 4, livre.getCategorie() );
 			  
+			  pst.setLong(5, livre.getId());
+			  
+			  System.out.println(pst);
 			  int statut = pst.executeUpdate();
 			  
 			  if ( statut == 0 ) {
-				  throw new DaoException("Erreur de modification Auteur("+id+")");
+				  throw new DaoException("Erreur de modification Livre("+livre.getId()+")");
 			  }
 		      pst.close();
 		      
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de modification BDD Auteur", ex);
+	    	throw new DaoException("Erreur de modification BDD Livre", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}

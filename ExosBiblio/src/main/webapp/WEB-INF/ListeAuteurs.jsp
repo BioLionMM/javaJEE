@@ -15,8 +15,16 @@
     <p>Il y a <c:out value="${lengthAuteurs}" /> auteurs.</p>
 	<c:forEach items="${listAuteurs}" var="auteur" >
 		<p><c:out value="${auteur.nom }" /> <c:out value="${auteur.prenom}"/></p>
-		<c:out value="${param.btn}" />
-		<a href = "<c:url value = "/SupprimerAuteur?id=${auteur.id }"/>">
+		
+		<a href = "<c:url value = "/DetailsAuteur"> <c:param name="id" value="${auteur.id }" /> </c:url>" >
+			<input name="btn" type="submit" value="Details"/>
+		</a>
+		
+		<a href = "<c:url value = "/ModifierAuteur"> <c:param name="id" value="${auteur.id }" /> </c:url>" >
+			<input name="btn" type="submit" value="Modifier"/>
+		</a>
+		
+		<a href = "<c:url value = "/SupprimerAuteur"> <c:param name="id" value="${auteur.id }" /> </c:url>" >
 			<input name="btn" type="submit" value="Supprimer"/>
 		</a>
 		

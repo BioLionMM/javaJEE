@@ -16,6 +16,6 @@ public interface LivreDao {
 
     void         supprimer( long id ) throws DaoException;
     
-    void 		modification(long id, String titre) throws DaoException;
+    void 		modification(Livre livre) throws DaoException;
     
 }
